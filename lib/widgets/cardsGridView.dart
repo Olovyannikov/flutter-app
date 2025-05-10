@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CardsGridView extends StatelessWidget {
-  CardsGridView({required this.cards});
+  const CardsGridView({super.key, required this.cards});
 
   final List<Image> cards;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

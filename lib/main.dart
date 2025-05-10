@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/entities/Gallery/model/cubit.dart';
-import 'package:flutter_app/screens/index.dart';
+import 'package:flutter_app/entities/Bird/model/Bird.cubit.dart';
+import 'package:flutter_app/entities/Location/model/location_cubit.dart';
+import 'package:flutter_app/screens/index_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
@@ -12,11 +13,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<GalleryCubit>(
-      create: (context) => GalleryCubit()..getImages() ,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LocationCubit>(create: (context) => LocationCubit()..getLocation()),
+        BlocProvider<BirdPostCubit>(create: (context) => BirdPostCubit()..loadPosts()),
+      ],
       child: MaterialApp(
-        theme: ThemeData.dark(),
-        home: HomeScreen()
+        theme: ThemeData(
+          primaryColor: Color(0xFF334257),
+          colorScheme: ColorScheme.light().copyWith(
+            primary: Color(0xFF548CA8),
+            secondary: Color(0xFF96BAFF),
+          ),
+        ),
+        home: HomeScreen(),
       ),
     );
   }
